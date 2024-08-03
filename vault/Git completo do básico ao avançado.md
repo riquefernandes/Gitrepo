@@ -147,3 +147,11 @@ Mostra-se o hash do commit, a pessoa em que realizou a data e a mensagem do comm
 > Este comando é útil para ter uma visão geral das alterações feitas no repositório e entender rapidamente o impacto de cada commit sem precisar ver os detalhes completos de cada modificação.
 
 
+<h1>Git amend</h1>
+Suponhamos que você fez um commit com uma mensagem equivocada e deseja corrigi-la. Nesse caso, rodando o comando `git commit --amend -m 'sua mensagem aqui'`, você pode corrigir a última mensagem do commit. Por debaixo dos panos, o Git irá excluir o último commit e criar um novo com a mensagem corrigida.
+Agora, suponhamos que você fez um commit, mas esqueceu de adicionar um arquivo. Com o comando `git commit --amend --no-edit`, você pode adicionar o arquivo esquecido e combinar esse novo commit com o anterior, sem alterar a mensagem do commit original.
+
+<h1>GIt checkout</h1>
+Imagine que você deseja verificar as alterações entre versões, de forma que o Git reconhecerá o estado de um commit específico. Você pode usar o comando `git checkout "hashDoCommit"`, que é muito útil quando você deseja ver a aplicação como um todo no momento em que um commit foi criado.
+Os arquivos não serão perdidos e, se desejar voltar à versão atual, você pode rodar o comando `git checkout master`, que restaurará a branch principal na sua última versão.
+Além disso, o `git checkout` pode ser usado para descartar as últimas modificações feitas em arquivos não indexados (unstaged). Basta rodar o comando `git checkout nomeDoArquivo` para restaurar a versão anterior do arquivo.
