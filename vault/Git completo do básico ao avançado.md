@@ -151,7 +151,85 @@ Mostra-se o hash do commit, a pessoa em que realizou a data e a mensagem do comm
 Suponhamos que você fez um commit com uma mensagem equivocada e deseja corrigi-la. Nesse caso, rodando o comando `git commit --amend -m 'sua mensagem aqui'`, você pode corrigir a última mensagem do commit. Por debaixo dos panos, o Git irá excluir o último commit e criar um novo com a mensagem corrigida.
 Agora, suponhamos que você fez um commit, mas esqueceu de adicionar um arquivo. Com o comando `git commit --amend --no-edit`, você pode adicionar o arquivo esquecido e combinar esse novo commit com o anterior, sem alterar a mensagem do commit original.
 
-<h1>GIt checkout</h1>
+<h1>Git checkout</h1>
 Imagine que você deseja verificar as alterações entre versões, de forma que o Git reconhecerá o estado de um commit específico. Você pode usar o comando `git checkout "hashDoCommit"`, que é muito útil quando você deseja ver a aplicação como um todo no momento em que um commit foi criado.
 Os arquivos não serão perdidos e, se desejar voltar à versão atual, você pode rodar o comando `git checkout master`, que restaurará a branch principal na sua última versão.
 Além disso, o `git checkout` pode ser usado para descartar as últimas modificações feitas em arquivos não indexados (unstaged). Basta rodar o comando `git checkout nomeDoArquivo` para restaurar a versão anterior do arquivo.
+
+<h1>Git clean</h1>
+
+O git clean serve para excluir arquivos não traqueados, rodando o comando 
+`git clean -f` .
+É útlil quando você deseja fazer a remoção de um arquivo indesejado.
+
+<h1>Git reset</h1>
+
+Suponhamos que na área de trabalho do seu repositório há alterações em diversos arquivos rastreados e várias inserções de arquivos não rastreados, e você decide limpar todas as modificações para retornar ao commit anterior.
+Com o comando `git reset --hard`, você restaura os arquivos rastreados para a última versão do commit de uma só vez. Já com o comando `git clean`, você remove todos os arquivos não rastreados.
+
+<h1>git update-index --skip-worktree nomedoarquivo</h1>
+
+O comando `git update-index --skip-worktree nomeDoArquivo` é usado no Git para marcar um arquivo como "skip-worktree". Isso significa que o Git irá ignorar as alterações feitas nesse arquivo na área de trabalho (working directory) durante operações como `git status` e `git diff`.
+
+### Quando Usar `--skip-worktree`
+
+Esse comando é útil em cenários onde você tem um arquivo de configuração ou algum outro arquivo que precisa ser diferente em cada ambiente de desenvolvimento, mas não quer que essas diferenças sejam rastreadas pelo Git.
+
+### Como Funciona
+
+1. **Marcar um Arquivo com `--skip-worktree`**: Quando você marca um arquivo com `--skip-worktree`, o Git deixa de considerar as alterações feitas nesse arquivo na sua área de trabalho. O arquivo permanece no índice, mas futuras modificações não são mais destacadas.
+    
+    
+    `git update-index --skip-worktree nomeDoArquivo`
+    
+2. **Verificar o Status dos Arquivos `skip-worktree`**: Para ver quais arquivos estão marcados como `skip-worktree`, você pode usar:
+    
+    
+    `git ls-files -v | grep ^S`
+    
+    Os arquivos marcados com `S` estão com o atributo `skip-worktree`.
+    
+3. **Remover o Atributo `skip-worktree`**: Se você quiser voltar a rastrear as alterações de um arquivo, remova o atributo `skip-worktree` com:
+    
+    
+    `git update-index --no-skip-worktree nomeDoArquivo`
+    
+
+### Exemplo de Uso
+
+Imagine que você tem um arquivo de configuração `config.json` que contém configurações específicas do ambiente de desenvolvimento. Você não quer que as alterações nesse arquivo sejam rastreadas pelo Git.
+
+1. Marque o arquivo para ser ignorado:
+    
+    
+    `git update-index --skip-worktree config.json`
+    
+2. Faça alterações no `config.json` conforme necessário. O Git não irá mais reportar essas mudanças quando você rodar `git status` ou `git diff`.
+    
+3. Se precisar voltar a rastrear as mudanças no `config.json`, remova o atributo:
+    
+    `git update-index --no-skip-worktree config.json`
+    
+
+### Considerações Importantes
+
+- **Diferença entre `--skip-worktree` e `.gitignore`**:
+    
+    - `.gitignore` é usado para ignorar arquivos completamente, evitando que eles sejam adicionados ao repositório.
+    - `--skip-worktree` é usado para arquivos que já estão no repositório, mas cujas futuras modificações devem ser ignoradas.
+- **Atenção com Mudanças**:
+    
+    - Alterações nos arquivos marcados como `skip-worktree` não serão rastreadas, o que pode levar a inconsistências se essas alterações forem importantes para o projeto. Use essa opção com cuidado.
+
+O comando `git update-index --skip-worktree` é uma ferramenta poderosa para gerenciar configurações locais e outras variações de arquivos que não devem ser rastreadas pelo Git, mantendo a integridade do repositório principal.
+
+
+<h1>Git clone</h1>
+
+É possível clonar repositórios Git com o comando `git clone`. Pode-se clonar repositórios locais ou hospedados.
+
+**Exemplo de repositório local:** Se desejar fazer um clone de um projeto na sua máquina local, basta copiar o caminho da pasta a ser clonada.
+
+**Exemplo de repositório web:** Você também pode clonar qualquer repositório hospedado na web. Basta utilizar o comando `git clone https://exemplo.com.br/riquefernandes`.
+
+Clonando o repositório, além dos mesmos arquivos, você também tem o histórico de todas as alterações que foram feitas.
