@@ -155,6 +155,7 @@ Agora, suponhamos que você fez um commit, mas esqueceu de adicionar um arquivo.
 Imagine que você deseja verificar as alterações entre versões, de forma que o Git reconhecerá o estado de um commit específico. Você pode usar o comando `git checkout "hashDoCommit"`, que é muito útil quando você deseja ver a aplicação como um todo no momento em que um commit foi criado.
 Os arquivos não serão perdidos e, se desejar voltar à versão atual, você pode rodar o comando `git checkout master`, que restaurará a branch principal na sua última versão.
 Além disso, o `git checkout` pode ser usado para descartar as últimas modificações feitas em arquivos não indexados (unstaged). Basta rodar o comando `git checkout nomeDoArquivo` para restaurar a versão anterior do arquivo.
+Se você tem diversas branch's e está com arquivos não traqueados e você deseja mudar de ramificação, basta rodar o comando `git checkout -f branchEscolhida`
 
 <h1>Git clean</h1>
 
